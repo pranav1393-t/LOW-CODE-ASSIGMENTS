@@ -1,0 +1,1745 @@
+/*
+ * Author       : karthikeyan.p.2024.cse_ra193
+ * Generated on : 09-Nov-2026 19:31:24
+ * Version      : 1.0
+ */
+ application "Upstack"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form API_Check_History
+		{
+			displayname = "API Check History"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			API_endpoints
+			(
+				type = picklist	
+				displayname = "API endpoints"
+				values  = API_endpoints.ID
+    			displayformat = [" " + API_Name.prefix + " " + API_Name.first_name + " " + API_Name.last_name + " " + API_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_date
+			(
+    			type = date
+				displayname = "Check date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_Time
+			(
+    			type = time
+				displayname = "Check Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			HTTP_Status
+			(
+				type = number
+				displayname = "HTTP Status Code"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Response_Time
+			(
+				type = number
+				displayname = "Response Time (ms)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Check_Status
+			(
+				type = picklist
+				displayname = "Check Status"
+				maxchar = 100
+				values = {"Healthy","Failed","Timeout"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Error_message
+			(
+    			type = textarea
+				displayname = "Error message"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Error_Category
+			(
+				type = picklist
+				displayname = "Error Category"
+				maxchar = 100
+				values = {"None","Network Error","Timeout","Server Error","Client Error","Unknown"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form API_endpoints
+		{
+			displayname = "API endpoints"
+			success message = "Api Endpoint Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have API_Name
+			(
+    			type = name
+				displayname = "API Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have API_URL
+			(
+    			type = url
+				displayname = "API URL"
+				enable  linkname
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Check
+			(
+				type = number
+				displayname = "Check Interval"
+				maxchar = 5
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Active
+			(
+    			type = checkbox
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			API_URL_Plain
+			(
+    			type = text
+				displayname = "API URL Plain"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have API_Provider
+			(
+				type = picklist
+				displayname = "API  Provider"
+				maxchar = 100
+				values = {"OpenAI","Google Gemini"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Authentication_Type
+			(
+				type = picklist
+				displayname = "Authentication Type"
+				maxchar = 100
+				values = {"Bearer Token","API Key Header"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Model_Name
+			(
+    			type = text
+				displayname = "Model Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have HTTP_Method
+			(
+				type = picklist
+				displayname = "HTTP Method"
+				maxchar = 100
+				values = {"GET","POST"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Request_Body
+			(
+    			type = textarea
+				displayname = "Request Body"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Expected_Response_Text
+			(
+    			type = text
+				displayname = "Expected Response Text"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Timeout_Seconds
+			(
+				type = number
+				displayname = "Timeout (Seconds)"
+				maxchar = 3
+				initial value = 30
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Incidents
+		{
+			success message = "Incident Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			API_endpoints
+			(
+				type = picklist	
+				displayname = "API endpoints"
+				values  = API_endpoints.ID
+    			displayformat = [" " + API_Name.prefix + " " + API_Name.first_name + " " + API_Name.last_name + " " + API_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Incident_Title
+			(
+    			type = text
+				displayname = "Incident Title"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Error_Message
+			(
+    			type = textarea
+				displayname = "Error Message"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Severity
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Low","Medium","High","Critical"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Error_Category
+			(
+				type = picklist
+				displayname = "Error Category"
+				maxchar = 100
+				values = {"Network Error","Timeout","Server Error","Client Error","Unknown"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Incident_Status
+			(
+				type = picklist
+				displayname = "Incident Status"
+				maxchar = 100
+				values = {"Open","Investigating","Resolved"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Detected_At_Date
+			(
+    			type = date
+				displayname = "Detected At Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Detected_At_Time
+			(
+    			type = time
+				displayname = "Detected At Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			AI_Analysis
+			(
+    			type = textarea
+				displayname = "AI Analysis"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Resolved_At_Date
+			(
+    			type = date
+				displayname = "Resolved At Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list All_Api_Endpoints
+		{
+			displayName = "All Api Endpoints"
+			show all rows from API_endpoints    
+			(
+				API_Name  as "API Name"
+				API_URL as "API URL"
+				Check as "Check Interval"
+				Active
+				Description
+				API_URL_Plain as "API URL Plain"
+				API_Provider as "API  Provider"
+				Authentication_Type as "Authentication Type"
+				Model_Name as "Model Name"
+				HTTP_Method as "HTTP Method"
+				Request_Body as "Request Body"
+				Expected_Response_Text as "Expected Response Text"
+				Timeout_Seconds as "Timeout (Seconds)"
+			)
+		}
+		default list API_Check_History_Report
+		{
+			displayName = "API Check History Report"
+			show all rows from API_Check_History    
+			(
+				API_endpoints as "API endpoints"
+				Check_date as "Check date"
+				Check_Time as "Check Time"
+				HTTP_Status as "HTTP Status Code"
+				Response_Time as "Response Time (ms)"
+				Check_Status as "Check Status"
+				Error_message as "Error message"
+				Error_Category as "Error Category"
+			)
+		}
+		default list All_Incidents
+		{
+			displayName = "All Incidents"
+			show all rows from Incidents    
+			(
+				API_endpoints as "API endpoints"
+				Incident_Title as "Incident Title"
+				Error_Message as "Error Message"
+				Severity
+				Error_Category as "Error Category"
+				Incident_Status as "Incident Status"
+				Detected_At_Date as "Detected At Date"
+				Detected_At_Time as "Detected At Time"
+				AI_Analysis as "AI Analysis"
+				Resolved_At_Date as "Resolved At Date"
+			)
+		}
+		list All_API_Endpoints1
+		{
+			displayName = "All API Endpoints"
+			show all rows from API_endpoints    
+			(
+				API_Name  as "API Name"
+				API_URL as "API URL"
+				Check as "Check Interval"
+				Active
+				Description
+			)
+		}
+		list API_Monitoring_History
+		{
+			displayName = "API Monitoring History"
+			show all rows from API_Check_History    
+			(
+				API_endpoints as "API endpoints"
+				Check_date as "Check date"
+				Check_Time as "Check Time"
+				HTTP_Status as "HTTP Status Code"
+				Response_Time as "Response Time (ms)"
+				Check_Status as "Check Status"
+				Error_message as "Error message"
+				Error_Category as "Error Category"
+			)
+		}
+		list Incident_Management
+		{
+			displayName = "Incident Management"
+			show all rows from Incidents    
+			(
+				API_endpoints as "API endpoints"
+				Incident_Title as "Incident Title"
+				Error_Message as "Error Message"
+				Severity
+				Error_Category as "Error Category"
+				Incident_Status as "Incident Status"
+				Detected_At_Date as "Detected At Date"
+				Detected_At_Time as "Detected At Time"
+				AI_Analysis as "AI Analysis"
+				Resolved_At_Date as "Resolved At Date"
+			)
+		}
+	}
+	pages
+	{
+		page UpStack_Dashboard
+		{
+			displayname = "UpStack Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 7'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#5A25A7'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'top'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#F3F3F3'\n\tsize = '28px'\n\tbold = 'true' \n\titalic = 'true' \n\tfontFamily = 'roboto-regular' \n\ttype = 'Text'\n\n\tbgColor = '#5A25A7'\n\tcornerRadius = '10px'\n\n\n\n\n\n    borderColor = 'theme:75'\n    borderWidth = '0px'\n\n\t  value = 'UPSTACK'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#047B33'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF4C2F'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.API_endpoints.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Total API Endpoints'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 1'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<image  \n\t\tmargin = '0px'\n\n    borderColor = '#FFFFFF'\n    borderWidth = '0px'\n\tcolor = '#FFFFFF'\n\tbgColor = '#047B33'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'media-1-ticket-76'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#047B33'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#047B33'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.Incidents.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Total Incidents'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 3'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '5px' \n\tmarginBottom = '0px'\n\tmarginTop = '0px'\n\tpadding = '0px'\n\tcolor = '#FF0048'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tdecimalPlaces = '2'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#FF0048'\n    borderWidth = '0px'\n\n\t  value = 'thisapp.API_Check_History.Response_Time.avg'\n>\n</text>\n\n</pc><pc \n\t\n>\n\t<image  \n\t\n\tcolor = '#FFFFFF'\n\tbgColor = '#FF0048'\n\twidth = '40px'\n\theight = '40px'\n\ttype = 'icon'\n\tvalue = 'users-2-a-star'\n\tsize = '22px'\n\tcornerRadius = '20px'\n\ticonType = 'solid'\n/>\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '5px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Average Response Time (ms)'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<chart \n\telementName='Chart'\n\n\ttype = 'Semi Donut'\n\tbgColor = '#FFFFFF'\n\ttheme = 'theme1'\n\tlegendPos = 'center.top'\n\theightType = 'auto'\n\theightValue = '300px'\n\tappLinkName = 'thisapp'\n\tformLinkName = 'API_Check_History'\n\txfield = 'Response_Time'\n\tyfields = 'sum:Response_Time'\n/>\n\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 4'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '7px' \n\n\tcolor = '#FFFFFF'\n\tbgColor = '#2A70E7'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'business-gold'\n\tsize = '24px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpadding = '5px'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#2A70E7'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#2A70E7'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_Status == &quot;Failed&quot;'\n\t  value = 'thisapp.API_Check_History.ID.count'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Failed Health Checks'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<panel elementName='Panel 5'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\n>\n\t<image  \n\t\tmarginRight = '7px' \n\n\tcolor = '#FFFFFF'\n\tbgColor = '#2A70E7'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'business-gold'\n\tsize = '24px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc><pc \n\t\tpadding = '5px'\n\n\t\thAlign = 'left'\n>\n\t<pr \n\t>\n\t<pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Open Incidents'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n\t\thAlign = 'left'\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '2px'\n\tpadding = '0px'\n\tcolor = '#2A70E7'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#2A70E7'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Incident_Status == &quot;Open&quot;'\n\t  value = 'thisapp.Incidents.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<panel elementName='Panel 6'\n \n >\n\t<pr \n\t\t\twidth='fill'\n\t\theight='fill'\n>\n\t<pc \n\t\tpadding = '20px'\n\tbgColor = '#BCE0C2'\n\n\t\twidth = '100%'\n\t\thAlign = 'center'\n\t\tvAlign = 'middle'\n>\n\t<pr \n\t\t\twidth='auto'\n\t\theight='auto'\n>\n\t<pc \n\t\tpadding = '5px'\n\n\t\thAlign = 'right'\n>\n\t<pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmargin = '0px'\n\tpadding = '0px'\n\tcolor = '#333333'\n\tsize = '16px'\n\ttype = 'Text'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\n\n\n    borderColor = '#333333'\n    borderWidth = '0px'\n\n\t  value = 'Healthy API Checks'\n>\n</text>\n\n</pc>\n</pr><pr \n\t>\n\t<pc \n\t\n>\n\t<text \n\n\tmarginLeft = '0px'\n\tmarginRight = '0px' \n\tmarginBottom = '0px'\n\tmarginTop = '3px'\n\tpadding = '0px'\n\tcolor = '#00D9B1'\n\tsize = '36px'\n\tbold = 'true' \n\ttype = 'Form Data'\n\n\tbgColor = 'transparent'\n        bgColorType = 'noFill'\n\tcornerRadius = '0px'\n\n\n\tdisplayType = 'actual'\n\tthousandsSeperator = 'LOCALE'\n\tdecimalSeperator = 'DOT'\n\tnumberScale = 'none'\n\n\n\n    borderColor = '#00D9B1'\n    borderWidth = '0px'\n\n\t\tcriteria = 'Check_Status == &quot;Healthy&quot;'\n\t  value = 'thisapp.API_Check_History.ID.count'\n>\n</text>\n\n</pc>\n</pr>\n</pc><pc \n\t\n>\n\t<image  \n\t\tmarginLeft = '7px'\n\n\tcolor = '#FFFFFF'\n\tbgColor = '#00D9B1'\n\twidth = '52px'\n\theight = '52px'\n\ttype = 'icon'\n\tvalue = 'ui-1-email-85'\n\tsize = '32px'\n\tcornerRadius = '26px'\n\ticonType = 'solid'\n/>\n</pc>\n</pr>\n</pc>\n</pr>\n</panel>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<form \n\telementName='Form'\n\n\tappLinkName = 'thisapp'\n\tlinkName = 'API_endpoints'\n\tallowPublicAccess = 'true'\n\theightType = 'auto'\n\turlType = 'none'\n\tzc_SuccMsg = 'submitted successfully'\n\tzc_Header = 'false'\n\tzc_SubmitVal = 'submit'\n/> \n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+		 functions
+		 {
+			 Deluge
+			 {
+				 string Analyze_API_Incident()
+                 {
+                 	messages = List();
+                 	systemMessage = Map();
+                 	systemMessage.put("role","system");
+                 	systemMessage.put("content","You are an API incident analysis assistant. Explain the likely cause of API errors and recommend practical troubleshooting steps. Be concise and do not claim certainty when the cause is unknown.");
+                 	messages.add(systemMessage);
+                 	userMessage = Map();
+                 	userMessage.put("role","user");
+                 	userMessage.put("content","Analyze this test incident: HTTP status 500, error category Server Error, error message Internal Server Error. Return the likely cause and recommended troubleshooting steps.");
+                 	messages.add(userMessage);
+                 	requestBody = Map();
+                 	requestBody.put("model","gpt-4o-mini");
+                 	requestBody.put("messages",messages);
+                 	requestBody.put("temperature",0.2);
+                 	response = invokeurl
+                 	[
+                 		url :"https://api.openai.com/v1/chat/completions"
+                 		type :POST
+                 		body:requestBody.toString()
+                 		headers:{"Content-Type":"application/json"}
+                 		connection:"openai_upstack"
+                 	];
+                 	return response.toString();
+                 }
+				 string Analyze_Incident_Details(string apiName, string statusCode, string errorCategory, string errorMessage)
+                 {
+                 	messages = List();
+                 	systemMessage = Map();
+                 	systemMessage.put("role","system");
+                 	systemMessage.put("content","You are an API incident analysis assistant for UpStack. Analyze API failures and return a concise explanation containing: Likely Root Cause, Technical Explanation, and Recommended Actions. Do not claim certainty when the available evidence is insufficient.");
+                 	messages.add(systemMessage);
+                 	userMessage = Map();
+                 	userMessage.put("role","user");
+                 	userMessage.put("content","Analyze this API incident:\nAPI Name: " + apiName + "\nHTTP Status Code: " + statusCode + "\nError Category: " + errorCategory + "\nError Message: " + errorMessage);
+                 	messages.add(userMessage);
+                 	requestBody = Map();
+                 	requestBody.put("model","gpt-4o-mini");
+                 	requestBody.put("messages",messages);
+                 	requestBody.put("temperature",0.2);
+                 	response = invokeurl
+                 	[
+                 		url :"https://api.openai.com/v1/chat/completions"
+                 		type :POST
+                 		body:requestBody.toString()
+                 		headers:{"Content-Type":"application/json"}
+                 		connection:"openai_upstack"
+                 	];
+                 	choices = response.get("choices");
+                 	if(choices != null && choices.size() > 0)
+                 	{
+                 		firstChoice = choices.get(0);
+                 		messageData = firstChoice.get("message");
+                 		if(messageData != null)
+                 		{
+                 			return messageData.get("content").toString();
+                 		}
+                 	}
+                 	return "AI analysis could not be generated. OpenAI response: " + response.toString();
+                 }
+				 string Test_Gemini_Connection()
+                 {
+                 	requestBody = Map();
+                 	contentsList = List();
+                 	contentItem = Map();
+                 	partsList = List();
+                 	textPart = Map();
+                 	textPart.put("text","Reply with exactly: Gemini connection successful.");
+                 	partsList.add(textPart);
+                 	contentItem.put("parts",partsList);
+                 	contentsList.add(contentItem);
+                 	requestBody.put("contents",contentsList);
+                 	response = invokeurl
+                 	[
+                 		url :"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+                 		type :POST
+                 		body:requestBody.toString()
+                 		headers:{"Content-Type":"application/json","x-goog-api-key":"AQ.Ab8RN6Lt6nbts9459gZV-MWHgTNf0TKINQClxhtlxKssYQZ1jQ"}
+                 	];
+                 	return response.toString();
+                 }
+				 string Test_OpenAI_Connection()
+                 {
+                 	response = invokeurl
+                 	[
+                 		url :"https://api.openai.com/v1/models"
+                 		type :GET
+                 		connection:"openai_upstack"
+                 	];
+                 	return response.toString();
+                 }
+				 string Test_Zia_Analysis()
+                 {
+                 	ziaResult = zia
+                 	[
+                 		message:"Analyze this API error: HTTP 500 Internal Server Error. Explain the likely cause and suggest troubleshooting steps."
+                 	];
+                 	return ziaResult.toString();
+                 }
+			 }
+		 }
+
+
+		workflow
+		{
+		form
+		{
+			Process_API_Health_Check as "Process API Health Check"
+			{
+				type =  form
+				form = API_Check_History
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Check_Status == "Failed" || input.Check_Status == "Timeout")
+										{
+											errorCategory = input.Error_Category;
+											if(errorCategory == null || errorCategory == "")
+											{
+												errorCategory = "Unknown";
+											}
+											errorMessage = input.Error_message;
+											if(errorMessage == null || errorMessage == "")
+											{
+												errorMessage = "No error details were provided.";
+											}
+											apiName = "Unknown API";
+											if(input.API_endpoints != null)
+											{
+												apiRecord = API_endpoints[ID == input.API_endpoints];
+												if(apiRecord != null)
+												{
+													apiName = apiRecord.API_Name;
+												}
+											}
+											statusCode = "0";
+											if(input.HTTP_Status != null)
+											{
+												statusCode = input.HTTP_Status.toString();
+											}
+											prompt = "Analyze this API incident for UpStack.\n";
+											prompt = prompt + "API Name: " + apiName + "\n";
+											prompt = prompt + "HTTP Status Code: " + statusCode + "\n";
+											prompt = prompt + "Error Category: " + errorCategory + "\n";
+											prompt = prompt + "Error Message: " + errorMessage + "\n";
+											prompt = prompt + "Provide Likely Root Cause, Technical Explanation, and Recommended Actions. Do not claim certainty when evidence is insufficient.";
+											aiAnalysis = "Zia analysis could not be generated.";
+											try 
+											{
+												ziaResult = zia
+												[
+													message:prompt
+												];
+												aiAnalysis = ziaResult.toString();
+											}	catch (e)
+											{
+												aiAnalysis = "Zia analysis failed: " + e.toString();
+											}
+											newIncident = insert into Incidents
+											[
+												API_endpoints=input.API_endpoints
+												Incident_Title="API Failure Detected"
+												Error_Message=errorMessage
+												Severity="High"
+												Error_Category=errorCategory
+												Incident_Status="Open"
+												Detected_At_Date=zoho.currentdate
+												Detected_At_Time=zoho.currenttime
+												AI_Analysis=aiAnalysis
+												Added_User=zoho.loginuser
+											];
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :"karthikeyan.p.2024.cse@rajalakshmi.edu.in"
+												subject :"UpStack Alert - API Failure"
+												message :"An API health check has failed. Please open UpStack to review the incident."
+											]
+										}
+						)
+						sendmail
+						(
+							from : "zoho.loginuserid"
+							to : "karthikeyan.p.2024.cse@rajalakshmi.edu.in"
+							subject : "Record Added"
+							message : "<p><span>An API health check has failed in UpStack.</span><br></p><p><br></p><div><span>API: ${API_endpoints.API_Name}</span><br></div><div><span>HTTP Status: ${HTTP_Status}</span><br></div><div><span>Error Category: ${Error_Category}</span><br></div><div><span>Error Message: ${Error_message}</span><br></div><p><br></p><p><span>Please open the UpStack application to review the incident and its AI analysis.</span><br></p><div><br></div>"
+							content type : Plain Text
+						)
+					}
+				}
+
+			}
+			Initialize_API_Monitoring as "Initialize API Monitoring"
+			{
+				type =  form
+				form = API_endpoints
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Active == true)
+										{
+											info "API endpoint registered for monitoring: " + input.API_Name;
+										}
+										else
+										{
+											info "API endpoint is inactive: " + input.API_Name;
+										}
+						)
+					}
+				}
+
+			}
+			Automatic_Incident_Resolu as "Automatic Incident Resolution Timestamp"
+			{
+				type =  form
+				form = Incidents
+
+				record event = on edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Incident_Status == "Resolved")
+										{
+											if(input.Resolved_At_Date == null)
+											{
+												input.Resolved_At_Date = zoho.currentdate;
+											}
+										}
+										if(input.Error_Category == "Network Error")
+										{
+											input.Severity = "Critical";
+										}
+										else if(input.Error_Category == "Timeout")
+										{
+											input.Severity = "High";
+										}
+										else if(input.Error_Category == "Server Error")
+										{
+											input.Severity = "High";
+										}
+										else if(input.Error_Category == "Client Error")
+										{
+											input.Severity = "Medium";
+										}
+										else if(input.Error_Category == "Unknown")
+										{
+											input.Severity = "Medium";
+										}
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Daily_API_Health_Monitori as "Daily API Health Monitoring"
+			{
+				type =  schedule
+					status = inactive
+				start = "2026-10-25 10:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						for each  api in API_endpoints[Active == true && API_Provider == "OpenAI"]
+										{
+											checkStart = zoho.currenttime.toLong();
+											httpStatus = 0;
+											responseTime = 0;
+											checkStatus = "Failed";
+											errorCategory = "Unknown";
+											errorMessage = "";
+											responseText = "";
+											try 
+											{
+												if(api.HTTP_Method == "POST")
+												{
+													response = invokeurl
+													[
+														url :api.API_URL_Plain
+														type :POST
+														body:api.Request_Body
+														headers:{"Content-Type":"application/json"}
+														detailed:true
+														connection:"openai_upstack"
+													];
+												}
+												else
+												{
+													response = invokeurl
+													[
+														url :api.API_URL_Plain
+														type :GET
+														detailed:true
+														connection:"openai_upstack"
+													];
+												}
+												checkEnd = zoho.currenttime.toLong();
+												responseTime = checkEnd - checkStart;
+												httpStatus = response.get("responseCode");
+												responseText = response.get("responseText");
+												if(responseText == null)
+												{
+													responseText = "";
+												}
+												else
+												{
+													responseText = responseText.toString();
+												}
+												if(httpStatus >= 200 && httpStatus < 400)
+												{
+													if(api.Expected_Response_Text != null && api.Expected_Response_Text != "")
+													{
+														if(responseText.contains(api.Expected_Response_Text))
+														{
+															checkStatus = "Healthy";
+															errorCategory = "None";
+														}
+														else
+														{
+															checkStatus = "Failed";
+															errorCategory = "Unknown";
+															errorMessage = "Expected response text was not found.";
+														}
+													}
+													else
+													{
+														checkStatus = "Healthy";
+														errorCategory = "None";
+													}
+												}
+												else if(httpStatus >= 400 && httpStatus < 500)
+												{
+													checkStatus = "Failed";
+													errorCategory = "Client Error";
+													errorMessage = "HTTP client error: " + httpStatus;
+												}
+												else if(httpStatus >= 500)
+												{
+													checkStatus = "Failed";
+													errorCategory = "Server Error";
+													errorMessage = "HTTP server error: " + httpStatus;
+												}
+												else
+												{
+													checkStatus = "Failed";
+													errorCategory = "Unknown";
+													errorMessage = "Unexpected HTTP status: " + httpStatus;
+												}
+											}	catch (e)
+											{
+												checkEnd = zoho.currenttime.toLong();
+												responseTime = checkEnd - checkStart;
+												checkStatus = "Failed";
+												errorMessage = e.toString();
+												if(errorMessage.contains("Response Code : 500"))
+												{
+													httpStatus = 500;
+													errorCategory = "Server Error";
+												}
+												else if(errorMessage.contains("Response Code : 502"))
+												{
+													httpStatus = 502;
+													errorCategory = "Server Error";
+												}
+												else if(errorMessage.contains("Response Code : 503"))
+												{
+													httpStatus = 503;
+													errorCategory = "Server Error";
+												}
+												else if(errorMessage.contains("Response Code : 504"))
+												{
+													httpStatus = 504;
+													errorCategory = "Server Error";
+												}
+												else
+												{
+													httpStatus = 0;
+													errorCategory = "Network Error";
+												}
+											}
+											newHistory = insert into API_Check_History
+											[
+												API_endpoints=api.ID
+												Check_date=zoho.currentdate
+												Check_Time=zoho.currenttime
+												HTTP_Status=httpStatus
+												Response_Time=responseTime
+												Check_Status=checkStatus
+												Error_message=errorMessage
+												Error_Category=errorCategory
+												Added_User=zoho.loginuser
+											];
+											info "API: " + api.API_Name + " | Status: " + checkStatus + " | HTTP: " + httpStatus;
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "UPS"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	connections
+	{
+		openai_upstack
+		(
+			displayname = "OpenAI_UpStack"
+			connector = openai
+		)
+	}
+	web
+	{
+		forms
+		{
+			form API_Check_History
+			{
+				label placement = left
+			}
+			form API_endpoints
+			{
+				label placement = left
+			}
+			form Incidents
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report All_Api_Endpoints
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_Name as "API Name"
+								API_URL as "API URL"
+								Check as "Check Interval"
+								Active
+								Description
+								API_URL_Plain as "API URL Plain"
+								API_Provider as "API  Provider"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_Name as "API Name"
+								API_URL as "API URL"
+								Check as "Check Interval"
+								Active
+								Description
+								API_URL_Plain as "API URL Plain"
+								API_Provider as "API  Provider"
+								Authentication_Type as "Authentication Type"
+								Model_Name as "Model Name"
+								HTTP_Method as "HTTP Method"
+								Request_Body as "Request Body"
+								Expected_Response_Text as "Expected Response Text"
+								Timeout_Seconds as "Timeout (Seconds)"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report API_Check_History_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Check_date as "Check date"
+								Check_Time as "Check Time"
+								HTTP_Status as "HTTP Status Code"
+								Response_Time as "Response Time (ms)"
+								Check_Status as "Check Status"
+								Error_message as "Error message"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Check_date as "Check date"
+								Check_Time as "Check Time"
+								HTTP_Status as "HTTP Status Code"
+								Response_Time as "Response Time (ms)"
+								Check_Status as "Check Status"
+								Error_message as "Error message"
+								Error_Category as "Error Category"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Incidents
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Incident_Title as "Incident Title"
+								Error_Message as "Error Message"
+								Severity
+								Error_Category as "Error Category"
+								Incident_Status as "Incident Status"
+								Detected_At_Date as "Detected At Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Incident_Title as "Incident Title"
+								Error_Message as "Error Message"
+								Severity
+								Error_Category as "Error Category"
+								Incident_Status as "Incident Status"
+								Detected_At_Date as "Detected At Date"
+								Detected_At_Time as "Detected At Time"
+								AI_Analysis as "AI Analysis"
+								Resolved_At_Date as "Resolved At Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_API_Endpoints1
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_Name as "API Name"
+								API_URL as "API URL"
+								Check as "Check Interval"
+								Active
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_Name as "API Name"
+								API_URL as "API URL"
+								Check as "Check Interval"
+								Active
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report API_Monitoring_History
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Check_date as "Check date"
+								Check_Time as "Check Time"
+								HTTP_Status as "HTTP Status Code"
+								Response_Time as "Response Time (ms)"
+								Check_Status as "Check Status"
+								Error_message as "Error message"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Check_date as "Check date"
+								Check_Time as "Check Time"
+								HTTP_Status as "HTTP Status Code"
+								Response_Time as "Response Time (ms)"
+								Check_Status as "Check Status"
+								Error_message as "Error message"
+								Error_Category as "Error Category"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Incident_Management
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Incident_Title as "Incident Title"
+								Error_Message as "Error Message"
+								Severity
+								Error_Category as "Error Category"
+								Incident_Status as "Incident Status"
+								Detected_At_Date as "Detected At Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								API_endpoints as "API endpoints"
+								Incident_Title as "Incident Title"
+								Error_Message as "Error Message"
+								Severity
+								Error_Category as "Error Category"
+								Incident_Status as "Incident Status"
+								Detected_At_Date as "Detected At Date"
+								Detected_At_Time as "Detected At Time"
+								AI_Analysis as "AI Analysis"
+								Resolved_At_Date as "Resolved At Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Api_Endpoints
+				{
+					displayname = "Api Endpoints"
+					icon = "food-temperature"
+					form  API_endpoints
+					{
+						icon = "food-temperature"
+					}
+					report All_Api_Endpoints
+					{
+						icon = "tech-desktop"
+					}
+					report All_API_Endpoints1
+					{
+						icon = "food-temperature"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section API_Check_History
+				{
+					displayname = "API Check History"
+					icon = "tech-2-l-check"
+					form  API_Check_History
+					{
+						icon = "tech-2-l-check"
+					}
+					report API_Check_History_Report
+					{
+						icon = "tech-desktop"
+					}
+					report API_Monitoring_History
+					{
+						icon = "tech-2-l-check"
+					}
+				}
+				section Incidents
+				{
+					displayname = "Incidents"
+					icon = "users-2-police"
+					form  Incidents
+					{
+						icon = "users-2-police"
+					}
+					report All_Incidents
+					{
+						icon = "tech-desktop"
+					}
+					report Incident_Management
+					{
+						icon = "users-2-police"
+					}
+				}
+				section UpStack_Dashboard
+				{
+					displayname = "UpStack Dashboard"
+					icon = "ui-1-dashboard-half"
+					page UpStack_Dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form API_Check_History
+			{
+				label placement = auto
+			}
+			form API_endpoints
+			{
+				label placement = auto
+			}
+			form Incidents
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form API_Check_History
+			{
+				label placement = auto
+			}
+			form API_endpoints
+			{
+				label placement = auto
+			}
+			form Incidents
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = turquoise
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+}
